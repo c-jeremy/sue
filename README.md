@@ -10,8 +10,6 @@
 
 Sue is a high-performance alternative interface for the Seiue (希悦) educational platform, focusing on speed, reliability, and user experience.
 
-
-
 ## 🚀 Features
 
 - **Server-Side Rendering**: Optimized page loading with SSR implementation - because it is PHP, obviously
