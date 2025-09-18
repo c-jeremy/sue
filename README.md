@@ -28,7 +28,7 @@ Sue is a high-performance alternative interface for the Seiue (希悦) education
 ## 🙏 Acknowledgements
 
 Special thanks to:
-- [Geeker Lstar](/geeker-lstar) from Beijing Academy for valuable ideas and contributions
+- [Geeker LStar](/geeker-lstar) from Beijing Academy for valuable ideas and contributions
 - All users who supported and contributed to Sue's development
 
 ## ⚠️ Important Notice
