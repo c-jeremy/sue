@@ -1,0 +1,94 @@
+
+        .BOLD {
+            font-weight: bold;
+        }
+        
+        .ITALIC {
+            text-decoration: italic;
+        }
+        
+        .UNDERLINE {
+            text-decoration: underline;
+        }
+
+        .color_red {
+            color: red;
+        }
+        
+        .color_yellow {
+            color: gold;
+        }
+        
+        .color_magenta {
+            color: magenta;
+        }
+        
+        .color_orange {
+            color: orange;
+        }
+        
+        .color_black {
+            color: black;
+        }
+        
+        .color_theme {
+            color: rgb(68, 122, 230);
+        }
+        
+        .color_pine {
+            color: rgb(142, 107, 241);
+        }
+        
+        .color_deep_gray {
+            color: dimgray;
+        }
+        
+        .color_blue {
+            color: #0284c7;
+        }
+        .text-sky-600 {
+
+            color: #0284c7;
+        }
+        
+        .color_grape {
+            color: rgb(21, 184, 177);
+        }
+        
+        
+        .bg_color_yellow{
+            background-color: yellow;
+        }
+        
+        .bg_color_white{
+            background-color: white;
+        }
+        
+        .align_left {
+            text-align: left;
+        }
+        
+        .align_center {
+            text-align: center;
+        }
+        
+        .align_right {
+            text-align: right;
+        }
+        
+        .align_justify {
+            text-align: justify;
+        }
+
+        /* 链接样式 */
+        a {
+            color: #db5a6b;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+       
+        

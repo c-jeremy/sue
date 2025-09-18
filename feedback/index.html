@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Feedback - Your Voice, Our Future</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        body.fade-in {
+            opacity: 1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 2rem;
+            transform: translateY(50px);
+            transition: transform 1.5s ease-in-out;
+        }
+
+        body.fade-in .container {
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed, #db2777, #ef4444);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientMove 8s ease infinite;
+            text-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
+            letter-spacing: 2px;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        form {
+            background-color: #1e293b;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(79, 70, 229, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #94a3b8;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            background-color: #334155;
+            border: 1px solid #475569;
+            border-radius: 0.5rem;
+            color: #e2e8f0;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .file-input-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-container input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .file-input-button {
+            background: linear-gradient(45deg, #4f46e5, #7c3aed, #db2777);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.25);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .file-input-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 8px rgba(79, 70, 229, 0.3);
+            background: linear-gradient(45deg, #4338ca, #6d28d9, #be185d);
+        }
+
+        .file-preview-container {
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .file-preview {
+            background-color: #334155;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            position: relative;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .file-preview img {
+            max-width: 100%;
+            max-height: 100px;
+            object-fit: cover;
+            border-radius: 0.25rem;
+        }
+
+        .file-preview .file-icon {
+            width: 40px;
+            height: 40px;
+            margin: 10px 0;
+            color: #94a3b8;
+        }
+
+        .file-preview .file-name {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            word-break: break-all;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .file-preview .delete-file {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: transparent;
+            color: #e2e8f0;
+            border: none;
+            width: 2.5rem;
+            height: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .file-preview .delete-file svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .file-preview .delete-file:hover {
+            transform: scale(1.1);
+            color: #ef4444;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(45deg, #4f46e5, #7c3aed, #db2777);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.25);
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(79, 70, 229, 0.3);
+        }
+
+        button[type="button"] {
+            background-color: #475569;
+            color: #e2e8f0;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button[type="button"]:hover {
+            background-color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ultra Feedback</h1>
+        <form id="feedbackForm">
+            <div>
+                <label for="feedback">Your Valuable Feedback</label>
+                <textarea id="feedback" name="feedback" placeholder="Please share your thoughts..." required></textarea>
+            </div>
+            <div>
+                <label for="file">Upload Files (Optional, Multiple Files Supported)</label>
+                <div class="file-input-container">
+                    <input type="file" id="file" name="file" multiple>
+                    <span class="file-input-button">Choose Files</span>
+                </div>
+            </div>
+            <div id="filePreviewContainer" class="file-preview-container"></div>
+            <div class="button-container">
+                <button type="submit">Submit Ultra Feedback</button>
+                <button type="button" id="generateTemplate">Generate Template</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('feedbackForm');
+            const fileInput = document.getElementById('file');
+            const filePreviewContainer = document.getElementById('filePreviewContainer');
+            const generateTemplateBtn = document.getElementById('generateTemplate');
+            const feedbackTextarea = document.getElementById('feedback');
+            let files = [];
+
+            // Add supreme fade-in effect
+            setTimeout(() => {
+                document.body.classList.add('fade-in');
+            }, 100);
+
+            fileInput.addEventListener('change', function(e) {
+                const newFiles = Array.from(e.target.files);
+                files = [...files, ...newFiles];
+                updateFilePreview();
+            });
+
+            function getFileIcon(fileType) {
+                if (fileType.startsWith('video/')) {
+                    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                        <line x1="7" y1="2" x2="7" y2="22"/>
+                        <line x1="17" y1="2" x2="17" y2="22"/>
+                        <line x1="2" y1="12" x2="22" y2="12"/>
+                        <line x1="2" y1="7" x2="7" y2="7"/>
+                        <line x1="2" y1="17" x2="7" y2="17"/>
+                        <line x1="17" y1="17" x2="22" y2="17"/>
+                        <line x1="17" y1="7" x2="22" y2="7"/>
+                    </svg>`;
+                } else if (fileType.startsWith('audio/')) {
+                    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18V5l12-2v13"/>
+                        <circle cx="6" cy="18" r="3"/>
+                        <circle cx="18" cy="16" r="3"/>
+                    </svg>`;
+                } else {
+                    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                    </svg>`;
+                }
+            }
+
+            function updateFilePreview() {
+                filePreviewContainer.innerHTML = '';
+                files.forEach((file, index) => {
+                    const preview = document.createElement('div');
+                    preview.className = 'file-preview';
+                    
+                    if (file.type.startsWith('image/')) {
+                        const img = document.createElement('img');
+                        img.src = URL.createObjectURL(file);
+                        img.alt = file.name;
+                        preview.appendChild(img);
+                    } else {
+                        const iconContainer = document.createElement('div');
+                        iconContainer.className = 'file-icon';
+                        iconContainer.innerHTML = getFileIcon(file.type);
+                        preview.appendChild(iconContainer);
+                    }
+
+                    const fileName = document.createElement('div');
+                    fileName.className = 'file-name';
+                    fileName.textContent = file.name;
+                    preview.appendChild(fileName);
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'delete-file';
+                    deleteBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    `;
+                    deleteBtn.onclick = function() {
+                        files.splice(index, 1);
+                        updateFilePreview();
+                    };
+                    preview.appendChild(deleteBtn);
+
+                    filePreviewContainer.appendChild(preview);
+                });
+            }
+
+            generateTemplateBtn.addEventListener('click', function() {
+                const templates = [
+                    "As a loyal user, I'm deeply impressed by [specific feature] of the product. It not only enhances my work efficiency but also brings an unparalleled experience to daily use. However, I believe there's room for further improvement in [certain aspect]. Overall, this is an amazing product, and I look forward to more surprises in the future!",
+                    "Having used this product for a while, I must say it has completely transformed my experience in [specific area]. The [standout feature] is particularly excellent, solving a long-standing problem for me. If some optimizations could be made in [suggested improvement area], I believe it would make this product even more perfect. Thank you for the team's tireless efforts, keep up the good work!",
+                    "As a tech enthusiast, I've witnessed the constant evolution of this product. The [new feature] in the latest version is refreshing and showcases the team's innovative spirit. However, I look forward to seeing the addition of [expected feature] in future updates. All in all, this is an industry-leading product that sets a new benchmark for future technology!"
+                ];
+                const randomTemplate = templates[Math.floor(Math.random() * templates.length)];
+                feedbackTextarea.value = randomTemplate;
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData();
+                formData.append('feedback', feedbackTextarea.value);
+                files.forEach(file => {
+                    formData.append('files[]', file);
+                });
+                // 创建XMLHttpRequest对象
+                var xhr = new XMLHttpRequest();
+                
+                // 配置请求类型、URL以及是否异步处理
+                xhr.open('POST', 'notify.php', true);
+                
+                // 设置期望的返回数据类型
+                xhr.responseType = 'json';
+                
+                // 当请求完成时执行的回调函数
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        // 请求成功，处理返回的数据
+                        console.log('服务器返回的数据：', xhr.response);
+                    } else {
+                        // 请求失败，处理错误
+                        console.error('请求失败，状态码：', xhr.status);
+                    }
+                };
+                
+                // 发送FormData对象
+                xhr.send(formData);
+                
+                // This should be the code to send data to the server
+                // Since we don't have an actual server, we're just simulating a successful submission
+                console.log('Feedback content:', formData.get('feedback'));
+                console.log('Uploaded files:', formData.getAll('files[]'));
+
+                alert('Your ultra feedback has been successfully submitted! Thank you for your valuable opinion.');
+                form.reset();
+                files = [];
+                updateFilePreview();
+            });
+        });
+    </script>
+</body>
+</html>

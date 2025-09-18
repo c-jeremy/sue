@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Debugger</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .upload-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .debug-console {
+            background-color: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .error {
+            color: #ff5555;
+            font-weight: bold;
+        }
+        .warning {
+            color: #ffaa00;
+        }
+        .success {
+            color: #55ff55;
+        }
+        .info {
+            color: #5555ff;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: none;
+        }
+        .progress {
+            height: 20px;
+            background-color: #4CAF50;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>File Upload Debugger</h1>
+        
+        <div class="upload-section">
+            <h2>Upload Files</h2>
+            <input type="file" id="fileInput" multiple>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div class="status" id="status"></div>
+            <button id="uploadButton">Upload Files</button>
+        </div>
+        
+        <h2>Debug Console</h2>
+        <div class="debug-console" id="debugConsole"></div>
+    </div>
+
+    <!-- Import the original upload script -->
+    <script src="//123.56.160.48:2023/ai-ups.js.php"></script>
+    
+    <script>
+        // Debug console functions
+        const debugConsole = document.getElementById('debugConsole');
+        const progressBar = document.getElementById('progressBar');
+        const progress = document.getElementById('progress');
+        const status = document.getElementById('status');
+        
+        // Override console methods to display in our debug console
+        const originalConsole = {
+            log: console.log,
+            error: console.error,
+            warn: console.warn,
+            info: console.info
+        };
+        
+        function appendToDebugConsole(message, type) {
+            const timestamp = new Date().toISOString();
+            const entry = document.createElement('div');
+            entry.className = type;
+            
+            // Convert objects to strings for display
+            let displayMessage = message;
+            if (typeof message === 'object') {
+                try {
+                    displayMessage = JSON.stringify(message, null, 2);
+                } catch (e) {
+                    displayMessage = String(message);
+                }
+            }
+            
+            entry.textContent = `[${timestamp}] [${type.toUpperCase()}] ${displayMessage}`;
+            debugConsole.appendChild(entry);
+            debugConsole.scrollTop = debugConsole.scrollHeight;
+        }
+        
+        // Override console methods
+        console.log = function(...args) {
+            originalConsole.log.apply(console, args);
+            args.forEach(arg => appendToDebugConsole(arg, 'info'));
+        };
+        
+        console.error = function(...args) {
+            originalConsole.error.apply(console, args);
+            args.forEach(arg => appendToDebugConsole(arg, 'error'));
+        };
+        
+        console.warn = function(...args) {
+            originalConsole.warn.apply(console, args);
+            args.forEach(arg => appendToDebugConsole(arg, 'warning'));
+        };
+        
+        console.info = function(...args) {
+            originalConsole.info.apply(console, args);
+            args.forEach(arg => appendToDebugConsole(arg, 'info'));
+        };
+        
+        // Global error handler
+        window.onerror = function(message, source, lineno, colno, error) {
+            appendToDebugConsole(`Global Error: ${message} at ${source}:${lineno}:${colno}`, 'error');
+            if (error && error.stack) {
+                appendToDebugConsole(`Stack Trace: ${error.stack}`, 'error');
+            }
+            return false;
+        };
+        
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', function(event) {
+            appendToDebugConsole(`Unhandled Promise Rejection: ${event.reason}`, 'error');
+            if (event.reason && event.reason.stack) {
+                appendToDebugConsole(`Stack Trace: ${event.reason.stack}`, 'error');
+            }
+        });
+        
+        // Check if the required functions exist
+        document.addEventListener('DOMContentLoaded', function() {
+            appendToDebugConsole('Page loaded, checking for upload functions...', 'info');
+            
+            if (typeof submitFileInfos === 'function') {
+                appendToDebugConsole('submitFileInfos function found!', 'success');
+            } else {
+                appendToDebugConsole('submitFileInfos function NOT found!', 'error');
+            }
+            
+            // Check for other expected functions
+            const expectedFunctions = [
+                'getFileID', 
+                'getUploadPolicy', 
+                'uploadFile', 
+                'getFileUrl', 
+                'updateFileStatus'
+            ];
+            
+            expectedFunctions.forEach(funcName => {
+                if (typeof window[funcName] === 'function') {
+                    appendToDebugConsole(`${funcName} function found!`, 'success');
+                } else {
+                    appendToDebugConsole(`${funcName} function NOT found!`, 'warning');
+                }
+            });
+        });
+        
+        // Add our own implementation of the upload process with extra debugging
+        document.getElementById('uploadButton').addEventListener('click', async function() {
+            const fileInput = document.getElementById('fileInput');
+            
+            if (!fileInput.files || fileInput.files.length === 0) {
+                appendToDebugConsole('No files selected!', 'error');
+                return;
+            }
+            
+            appendToDebugConsole(`Starting upload of ${fileInput.files.length} file(s)...`, 'info');
+            status.textContent = 'Uploading...';
+            progressBar.style.display = 'block';
+            progress.style.width = '0%';
+            
+            try {
+                // Call the original submitFileInfos function
+                appendToDebugConsole('Calling submitFileInfos()...', 'info');
+                
+                // Add progress tracking
+                let lastProgressUpdate = 0;
+                const originalXHROpen = XMLHttpRequest.prototype.open;
+                XMLHttpRequest.prototype.open = function() {
+                    this.addEventListener('progress', function(event) {
+                        if (event.lengthComputable) {
+                            const percentComplete = (event.loaded / event.total) * 100;
+                            progress.style.width = percentComplete + '%';
+                            
+                            // Only log every 10% to avoid flooding the console
+                            const progressRounded = Math.floor(percentComplete / 10) * 10;
+                            if (progressRounded > lastProgressUpdate) {
+                                lastProgressUpdate = progressRounded;
+                                appendToDebugConsole(`Upload progress: ${percentComplete.toFixed(2)}%`, 'info');
+                            }
+                        }
+                    });
+                    
+                    originalXHROpen.apply(this, arguments);
+                };
+                
+                // Call the original function and time it
+                const startTime = performance.now();
+                const result = await submitFileInfos();
+                const endTime = performance.now();
+                const duration = ((endTime - startTime) / 1000).toFixed(2);
+                
+                // Restore original XHR
+                XMLHttpRequest.prototype.open = originalXHROpen;
+                
+                // Display results
+                appendToDebugConsole(`Upload completed in ${duration} seconds`, 'success');
+                appendToDebugConsole('Result from submitFileInfos:', 'info');
+                appendToDebugConsole(result, 'info');
+                
+                if (Array.isArray(result) && result.length > 0) {
+                    status.textContent = `Upload successful! ${result.length} file(s) uploaded.`;
+                    progress.style.width = '100%';
+                    
+                    // Display the URLs
+                    appendToDebugConsole('Uploaded file URLs:', 'success');
+                    result.forEach((url, index) => {
+                        appendToDebugConsole(`File ${index + 1}: ${url}`, 'success');
+                        
+                        // Create a clickable link
+                        const linkElement = document.createElement('div');
+                        linkElement.innerHTML = `<a href="${url}" target="_blank">View File ${index + 1}</a>`;
+                        status.appendChild(linkElement);
+                    });
+                } else {
+                    status.textContent = 'Upload completed, but no URLs were returned!';
+                    appendToDebugConsole('No URLs were returned from submitFileInfos!', 'error');
+                }
+            } catch (error) {
+                appendToDebugConsole(`Error during upload: ${error.message}`, 'error');
+                if (error.stack) {
+                    appendToDebugConsole(`Stack trace: ${error.stack}`, 'error');
+                }
+                status.textContent = `Upload failed: ${error.message}`;
+                progress.style.width = '0%';
+            }
+        });
+        
+        // Add detailed debugging for network requests
+        const originalFetch = window.fetch;
+        window.fetch = async function(...args) {
+            const url = args[0];
+            const options = args[1] || {};
+            
+            appendToDebugConsole(`Fetch request to: ${url}`, 'info');
+            appendToDebugConsole(`Fetch method: ${options.method || 'GET'}`, 'info');
+            
+            if (options.headers) {
+                appendToDebugConsole('Fetch headers:', 'info');
+                for (const [key, value] of Object.entries(options.headers)) {
+                    // Don't log authorization headers fully
+                    if (key.toLowerCase() === 'authorization') {
+                        appendToDebugConsole(`  ${key}: Bearer ***`, 'info');
+                    } else {
+                        appendToDebugConsole(`  ${key}: ${value}`, 'info');
+                    }
+                }
+            }
+            
+            if (options.body) {
+                try {
+                    const bodyContent = typeof options.body === 'string' 
+                        ? JSON.parse(options.body) 
+                        : options.body;
+                    appendToDebugConsole('Fetch body:', 'info');
+                    appendToDebugConsole(bodyContent, 'info');
+                } catch (e) {
+                    appendToDebugConsole(`Fetch body: ${options.body}`, 'info');
+                }
+            }
+            
+            try {
+                const startTime = performance.now();
+                const response = await originalFetch.apply(this, args);
+                const endTime = performance.now();
+                const duration = (endTime - startTime).toFixed(2);
+                
+                appendToDebugConsole(`Fetch response from ${url} (${duration}ms): ${response.status} ${response.statusText}`, 
+                    response.ok ? 'success' : 'error');
+                
+                // Clone the response so we can read it and still return a usable response
+                const clonedResponse = response.clone();
+                
+                // Try to read and log the response body
+                clonedResponse.text().then(text => {
+                    try {
+                        const json = JSON.parse(text);
+                        appendToDebugConsole('Response body (JSON):', 'info');
+                        appendToDebugConsole(json, 'info');
+                    } catch (e) {
+                        appendToDebugConsole(`Response body: ${text.substring(0, 500)}${text.length > 500 ? '...' : ''}`, 'info');
+                    }
+                }).catch(err => {
+                    appendToDebugConsole(`Could not read response body: ${err.message}`, 'warning');
+                });
+                
+                return response;
+            } catch (error) {
+                appendToDebugConsole(`Fetch error for ${url}: ${error.message}`, 'error');
+                throw error;
+            }
+        };
+        
+        // Log when the page is fully loaded
+        window.addEventListener('load', function() {
+            appendToDebugConsole('Page fully loaded with all resources', 'success');
+            appendToDebugConsole('Ready to upload files', 'info');
+        });
+    </script>
+</body>
+</html>

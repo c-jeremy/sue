@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高中英语从句语法精讲：结构、功能与应用</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3f37c9;
+            --secondary: #f72585;
+            --accent: #4cc9f0;
+            --neutral-100: #f8f9fa;
+            --neutral-200: #e9ecef;
+            --neutral-300: #dee2e6;
+            --neutral-400: #ced4da;
+            --neutral-500: #adb5bd;
+            --neutral-600: #6c757d;
+            --neutral-700: #495057;
+            --neutral-800: #343a40;
+            --neutral-900: #212529;
+            --success: #38b000;
+            --warning: #ffaa00;
+            --info: #3a86ff;
+            --danger: #d90429;
+            --transition-slow: 0.5s;
+            --transition-medium: 0.3s;
+            --transition-fast: 0.15s;
+            --border-radius-sm: 0.25rem;
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 1rem;
+            --border-radius-xl: 2rem;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            min-height: 100vh;
+            color: var(--neutral-800);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .presentation-wrapper {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .control-btn {
+            background: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--primary);
+            transition: all var(--transition-medium);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .control-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .control-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: var(--secondary);
+            z-index: 1000;
+            transition: width var(--transition-medium) ease-out;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+            opacity: 0;
+            transform: translateX(100%);
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 2;
+        }
+
+        .slide.prev {
+            transform: translateX(-100%);
+            z-index: 1;
+        }
+
+        .slide-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Title Slide */
+        .title-slide {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            text-align: center;
+        }
+
+        .title-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px;
+            border-radius: var(--border-radius-lg);
+            background: white;
+            box-shadow: var(--shadow-xl);
+            transform: translateY(0);
+            transition: transform 0.5s ease;
+        }
+
+        .title-slide.active .title-content {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .main-title {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 30px;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 2rem;
+            color: var(--neutral-700);
+            margin-bottom: 60px;
+            font-weight: 400;
+        }
+
+        .presenter-info {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 40px;
+            border-radius: var(--border-radius-lg);
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            margin-top: 40px;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s ease 0.5s;
+        }
+
+        .title-slide.active .presenter-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .presenter-info .team {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .presenter-info .members {
+            opacity: 0.9;
+            font-size: 1.3rem;
+        }
+
+        /* Content Slides */
+        .content-slide {
+            background: white;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 40px 60px;
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+
+        .content-slide.active .slide-header {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .slide-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .slide-icon {
+            font-size: 3rem;
+        }
+
+        .slide-body {
+            flex: 1;
+            padding: 0 60px 60px;
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease 0.3s;
+        }
+
+        .content-slide.active .slide-body {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+
+        .content-slide.active .section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-slide.active .section:nth-child(1) { transition-delay: 0.4s; }
+        .content-slide.active .section:nth-child(2) { transition-delay: 0.6s; }
+        .content-slide.active .section:nth-child(3) { transition-delay: 0.8s; }
+        .content-slide.active .section:nth-child(4) { transition-delay: 1s; }
+        .content-slide.active .section:nth-child(5) { transition-delay: 1.2s; }
+
+        .section-title {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid var(--primary-light);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-icon {
+            color: var(--primary);
+        }
+
+        .definition-box {
+            background: linear-gradient(135deg, #e6f1ff, #d4e5ff);
+            border-left: 6px solid var(--primary);
+            padding: 35px;
+            margin: 40px 0;
+            border-radius: var(--border-radius-lg);
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .definition-box::before {
+            content: '"';
+            position: absolute;
+            top: -30px;
+            left: 10px;
+            font-size: 150px;
+            color: rgba(67, 97, 238, 0.1);
+            font-family: serif;
+        }
+
+        .key-points {
+            background: var(--neutral-100);
+            border-radius: var(--border-radius-lg);
+            padding: 35px;
+            margin: 30px 0;
+            border: 2px solid var(--neutral-300);
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition-medium);
+        }
+
+        .key-points:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .key-points h4 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 25px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .key-points h4::before {
+            content: '\f0eb';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .point-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .point-list li {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-left: 35px;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .point-list li::before {
+            content: "\f30b";
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #fff9db, #ffe8cc);
+            border-left: 6px solid var(--warning);
+            padding: 35px;
+            margin: 30px 0;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            transition: transform var(--transition-medium);
+        }
+
+        .example-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .example-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .example-title::before {
+            content: '\f02b';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--warning);
+        }
+
+        .example-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .example-list li {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: var(--border-radius-md);
+            border-left: 3px solid var(--warning);
+            transition: all var(--transition-medium);
+        }
+
+        .example-list li:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateX(5px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, var(--primary-light) 0%, var(--primary) 100%);
+            color: white;
+            padding: 3px 10px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            display: inline-block;
+            line-height: 1.5;
+        }
+
+        .note-box {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border-left: 6px solid var(--success);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            transition: transform var(--transition-medium);
+        }
+
+        .note-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .note-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #065f46;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .note-title::before {
+            content: '\f05a';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--success);
+        }
+
+        .note-content {
+            font-size: 1.3rem;
+            color: #047857;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 40px 0;
+            font-size: 1.3rem;
+            box-shadow: var(--shadow-lg);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 25px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .comparison-table td {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--neutral-300);
+            background: white;
+            transition: all var(--transition-fast);
+        }
+
+        .comparison-table tr:hover td {
+            background: var(--neutral-100);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:nth-child(even) td {
+            background: var(--neutral-100);
+        }
+
+        .comparison-table tr:nth-child(even):hover td {
+            background: var(--neutral-200);
+        }
+
+        .presenter-credit {
+            text-align: right;
+            margin-top: 60px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--neutral-100), var(--neutral-200));
+            border-radius: var(--border-radius-lg);
+            font-size: 1.4rem;
+            color: var(--neutral-700);
+            box-shadow: var(--shadow-md);
+        }
+
+        .presenter-name {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            position: relative;
+        }
+
+        .nav-dot::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all var(--transition-medium);
+        }
+
+        .nav-dot:hover::before {
+            opacity: 1;
+            right: 30px;
+        }
+
+        .nav-dot.active {
+            background: white;
+            transform: scale(1.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .main-title {
+                font-size: 4rem;
+            }
+            .slide-title {
+                font-size: 3rem;
+            }
+            .section-title {
+                font-size: 2.4rem;
+            }
+            .definition-box, .key-points, .example-box, .note-box {
+                padding: 25px;
+            }
+            .point-list li, .example-list li {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .slide {
+                padding: 30px;
+            }
+            .slide-header {
+                padding: 30px 40px;
+            }
+            .slide-body {
+                padding: 0 40px 40px;
+            }
+            .main-title {
+                font-size: 3.5rem;
+            }
+            .subtitle {
+                font-size: 1.8rem;
+            }
+            .slide-title {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .nav-menu {
+                right: 15px;
+            }
+            .slide-controls {
+                bottom: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px;
+                height: auto;
+                min-height: 100vh;
+            }
+            .slide-header {
+                padding: 25px 30px;
+            }
+            .slide-body {
+                padding: 0 30px 30px;
+            }
+            .main-title {
+                font-size: 2.8rem;
+            }
+            .subtitle {
+                font-size: 1.5rem;
+                margin-bottom: 40px;
+            }
+            .presenter-info {
+                padding: 25px;
+            }
+            .presenter-info .team {
+                font-size: 1.5rem;
+            }
+            .presenter-info .members {
+                font-size: 1.1rem;
+            }
+            .slide-title {
+                font-size: 2.2rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .definition-box, .key-points, .example-box, .note-box {
+                padding: 20px;
+                font-size: 1.2rem;
+            }
+            .point-list li, .example-list li {
+                font-size: 1.1rem;
+                padding-left: 25px;
+            }
+            .nav-menu {
+                display: none;
+            }
+            .control-btn {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .slide {
+                position: relative;
+                transform: none !important;
+                opacity: 1 !important;
+                page-break-after: always;
+                height: auto;
+                min-height: auto;
+            }
+            .nav-menu, .slide-controls, .progress-bar {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        /* Fullscreen mode */
+        .fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: white;
+            transition: all var(--transition-medium);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        /* Dark mode toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: white;
+            transition: all var(--transition-medium);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        /* Dark theme */
+        body.dark-theme {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        body.dark-theme .title-slide {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+        }
+
+        body.dark-theme .title-content {
+            background: #0f3460;
+        }
+
+        body.dark-theme .main-title {
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.dark-theme .subtitle {
+            color: var(--neutral-300);
+        }
+
+        body.dark-theme .content-slide {
+            background: #0f3460;
+            color: var(--neutral-200);
+        }
+
+        body.dark-theme .slide-header {
+            background: linear-gradient(135deg, #16213e, #1a1a2e);
+        }
+
+        body.dark-theme .section-title {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        body.dark-theme .section-icon {
+            color: var(--accent);
+        }
+
+        body.dark-theme .definition-box {
+            background: linear-gradient(135deg, #16213e, #0f3460);
+            border-left-color: var(--accent);
+        }
+
+        body.dark-theme .key-points {
+            background: #16213e;
+            border-color: #0f3460;
+        }
+
+        body.dark-theme .key-points h4 {
+            color: var(--accent);
+        }
+
+        body.dark-theme .example-box {
+            background: linear-gradient(135deg, #16213e, #0f3460);
+            border-left-color: var(--warning);
+        }
+
+        body.dark-theme .example-list li {
+            background: rgba(22, 33, 62, 0.7);
+        }
+
+        body.dark-theme .example-list li:hover {
+            background: rgba(22, 33, 62, 0.9);
+        }
+
+        body.dark-theme .note-box {
+            background: linear-gradient(135deg, #16213e, #0f3460);
+            border-left-color: var(--success);
+        }
+
+        body.dark-theme .comparison-table th {
+            background: linear-gradient(135deg, #16213e, #0f3460);
+        }
+
+        body.dark-theme .comparison-table td {
+            background: #16213e;
+            border-bottom-color: #0f3460;
+        }
+
+        body.dark-theme .comparison-table tr:nth-child(even) td {
+            background: #1a1a2e;
+        }
+
+        body.dark-theme .comparison-table tr:nth-child(even):hover td {
+            background: #0f3460;
+        }
+
+        body.dark-theme .presenter-credit {
+            background: linear-gradient(135deg, #16213e, #1a1a2e);
+            color: var(--neutral-400);
+        }
+
+        body.dark-theme .presenter-name {
+            color: var(--accent);
+        }
+
+        body.dark-theme .control-btn {
+            background: #16213e;
+            color: var(--accent);
+        }
+
+        body.dark-theme .control-btn:hover {
+            background: var(--accent);
+            color: #16213e;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <button class="fullscreen-btn" id="fullscreenBtn" title="全屏模式">
+        <i class="fas fa-expand"></i>
+    </button>
+    
+    <button class="theme-toggle" id="themeToggle" title="切换主题">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <div class="nav-menu" id="navMenu">
+        <!-- Navigation dots will be added by JavaScript -->
+    </div>
+    
+    <div class="presentation-wrapper" id="presentation">
+        <!-- 标题幻灯片 -->
+        <div class="slide title-slide active" id="slide-0">
+            <div class="slide-inner">
+                <div class="title-content">
+                    <h1 class="main-title">高中英语从句语法精讲</h1>
+                    <p class="subtitle">结构、功能与应用的系统性解析</p>
+                    <div class="presenter-info">
+                        <div class="team">元培1班语法讲座小组</div>
+                        <div class="members">团队成员：曹智铭、汤子晏、王若宇、张凯航</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 名词性从句 -->
+        <div class="slide content-slide" id="slide-1">
+            <div class="slide-inner">
+                <div class="slide-header">
+                    <h2 class="slide-title">
+                        <i class="slide-icon fas fa-cubes"></i>
+                        名词性从句 (Nominal Clauses)
+                    </h2>
+                </div>
+                <div class="slide-body">
+                    <div class="definition-box">
+                        <strong>核心概念：</strong>名词性从句在复合句中充当<strong>名词</strong>的句法功能，可作主语、宾语、表语和同位语，是构建复杂句式的重要语法工具。掌握名词性从句有助于提升语言表达的准确性和复杂性。
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-heading"></i>
+                            1. 主语从句 (Subject Clause)
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>结构特点与语法规则</h4>
+                            <ul class="point-list">
+                                <li><strong>句法功能：</strong>在句中充当主语，说明"什么事"或"谁"是句子讨论的核心</li>
+                                <li><strong>谓语一致性：</strong>谓语动词通常使用单数形式，体现主语从句的整体性</li>
+                                <li><strong>形式主语：</strong>当从句较长时，常用形式主语 <span class="highlight">it</span> 置于句首，真正主语后置</li>
+                                <li><strong>语序特点：</strong>从句内部使用陈述语序，不可倒装</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="example-title">典型例句分析</div>
+                            <ul class="example-list">
+                                <li><span class="highlight">That he passed the exam</span> surprised everyone.</li>
+                                <li>It is obvious <span class="highlight">that honesty is the best policy</span>.</li>
+                                <li><span class="highlight">What he said at the meeting</span> makes perfect sense.</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-box">
+                            <div class="note-title">重要提醒</div>
+                            <div class="note-content">主语从句中的that绝对不可省略，这是区别于宾语从句的重要特征。</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-list-alt"></i>
+                            2. 宾语从句 (Object Clause)
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>功能与位置</h4>
+                            <ul class="point-list">
+                                <li><strong>动词宾语：</strong>充当及物动词的直接宾语</li>
+                                <li><strong>介词宾语：</strong>充当介词的宾语（注意：that从句不能作介词宾语）</li>
+                                <li><strong>形容词宾语：</strong>充当某些形容词（如sure, glad, sorry等）的宾语</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="example-title">分类例句展示</div>
+                            <ul class="example-list">
+                                <li>I believe <span class="highlight">(that) she is telling the truth</span>.</li>
+                                <li>We are discussing <span class="highlight">what we should do next</span>.</li>
+                                <li>It depends on <span class="highlight">whether you are willing to try</span>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-info-circle"></i>
+                            3. 表语从句 (Predicative Clause)
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>基本特征</h4>
+                            <ul class="point-list">
+                                <li><strong>位置固定：</strong>位于系动词（be, seem, appear, look等）之后</li>
+                                <li><strong>功能作用：</strong>对主语进行解释、说明或补充</li>
+                                <li><strong>引导词特点：</strong>that不可省略，常用whether而非if</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="example-title">实用例句</div>
+                            <ul class="example-list">
+                                <li>The truth is <span class="highlight">that we need more preparation time</span>.</li>
+                                <li>My concern is <span class="highlight">whether he can handle the pressure</span>.</li>
+                                <li>The question remains <span class="highlight">how we can improve efficiency</span>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-quote-right"></i>
+                            4. 同位语从句 (Appositive Clause)
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>核心特征</h4>
+                            <ul class="point-list">
+                                <li><strong>修饰对象：</strong>对前面的抽象名词进行具体内容的解释说明</li>
+                                <li><strong>常见先行词：</strong>fact, news, idea, hope, thought, question, order, problem, belief等</li>
+                                <li><strong>引导词特点：</strong>that在从句中不作任何成分，纯粹起连接作用，不可省略</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="example-title">典型应用</div>
+                            <ul class="example-list">
+                                <li>The news <span class="highlight">that our team won the championship</span> excited everyone.</li>
+                                <li>I have no idea <span class="highlight">when he will return from his trip</span>.</li>
+                                <li>The fact <span class="highlight">that she speaks five languages fluently</span> is impressive.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="presenter-credit">
+                        本部分讲解：<span class="presenter-name">王若宇</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 定语从句 -->
+        <div class="slide content-slide" id="slide-2">
+            <div class="slide-inner">
+                <div class="slide-header">
+                    <h2 class="slide-title">
+                        <i class="slide-icon fas fa-brush"></i>
+                        定语从句 (Attributive Clauses)
+                    </h2>
+                </div>
+                <div class="slide-body">
+                    <div class="definition-box">
+                        <strong>核心概念：</strong>定语从句在复合句中充当<strong>形容词</strong>功能，修饰其前面的名词或代词（先行词），使句子表达更加精确、生动。定语从句是英语中最重要的修饰性结构之一。
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-filter"></i>
+                            1. 限制性定语从句
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>基本特征</h4>
+                            <ul class="point-list">
+                                <li><strong>功能作用：</strong>对先行词进行必要的限制或限定，缺少则影响句意</li>
+                                <li><strong>标点规则：</strong>与主句之间不用逗号分隔</li>
+                                <li><strong>语义特点：</strong>提供关键信息，不可随意删除</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="example-title">实例分析</div>
+                            <ul class="example-list">
+                                <li>The student <span class="highlight">who studies diligently</span> will achieve success.</li>
+                                <li>This is the book <span class="highlight">that changed my perspective</span>.</li>
+                                <li>People <span class="highlight">who live in glass houses</span> shouldn't throw stones.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-plus-square"></i>
+                            2. 非限制性定语从句
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>核心特征</h4>
+                            <ul class="point-list">
+                                <li><strong>功能作用：</strong>对先行词进行补充说明，删除不影响主句基本意义</li>
+                                <li><strong>标点规则：</strong>必须用逗号与主句分隔</li>
+                                <li><strong>引导词限制：</strong>不能使用that，常用which, who, whose等</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="example-title">对比示例</div>
+                            <ul class="example-list">
+                                <li>My father, <span class="highlight">who is a renowned doctor</span>, works at the city hospital.</li>
+                                <li>Beijing, <span class="highlight">which is the capital of China</span>, has a rich cultural heritage.</li>
+                                <li>Shakespeare, <span class="highlight">whose works are world-famous</span>, lived in the 16th century.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-link"></i>
+                            3. 关系代词与关系副词
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>关系代词</h4>
+                            <ul class="point-list">
+                                <li><strong>who/whom：</strong>指人。who作主语或宾语，whom作宾语</li>
+                                <li><strong>which：</strong>指物或事件，作主语或宾语</li>
+                                <li><strong>that：</strong>指人或物，作主语或宾语，不可用于非限制性定语从句</li>
+                                <li><strong>whose：</strong>指人或物，作定语，表示所属关系</li>
+                            </ul>
+                        </div>
+
+                        <div class="key-points">
+                            <h4>关系副词</h4>
+                            <ul class="point-list">
+                                <li><strong>where：</strong>指地点，在从句中作地点状语</li>
+                                <li><strong>when：</strong>指时间，在从句中作时间状语</li>
+                                <li><strong>why：</strong>指原因，在从句中作原因状语</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-box">
+                            <div class="note-title">转换技巧</div>
+                            <div class="note-content">关系副词可以转换为"介词 + which"的形式：where = in/at/on which, when = in/on/at which, why = for which。</div>
+                        </div>
+                    </div>
+
+                    <div class="presenter-credit">
+                        本部分讲解：<span class="presenter-name">张凯航</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 状语从句 -->
+        <div class="slide content-slide" id="slide-3">
+            <div class="slide-inner">
+                <div class="slide-header">
+                    <h2 class="slide-title">
+                        <i class="slide-icon fas fa-map-marked-alt"></i>
+                        状语从句 (Adverbial Clauses)
+                    </h2>
+                </div>
+                <div class="slide-body">
+                    <div class="definition-box">
+                        <strong>核心概念：</strong>状语从句在复合句中充当<strong>副词</strong>功能，修饰主句中的动词、形容词、副词或整个句子，说明动作发生的时间、地点、原因、条件、让步、目的、结果、方式、比较等情况，是表达复杂逻辑关系的重要语法工具。
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-clock"></i>
+                            1. 时间状语从句
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>引导词分类</h4>
+                            <ul class="point-list">
+                                <li><strong>基本引导词：</strong>when, while, as, before, after, until/till, since</li>
+                                <li><strong>复合引导词：</strong>as soon as, the moment, no sooner...than, hardly...when</li>
+                                <li><strong>特殊引导词：</strong>once, by the time, every time, each time</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="example-title">时间关系表达</div>
+                            <ul class="example-list">
+                                <li><span class="highlight">When the bell rings</span>, students rush out of the classroom.</li>
+                                <li>He has been studying English <span class="highlight">since he was five years old</span>.</li>
+                                <li><span class="highlight">As soon as I finish my homework</span>, I'll watch TV.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-gavel"></i>
+                            2. 原因状语从句
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>引导词语义强度</h4>
+                            <ul class="point-list">
+                                <li><strong>because：</strong>语气最强，表示直接原因，可回答why问句</li>
+                                <li><strong>since：</strong>表示已知原因，语气较弱，常译为"既然"</li>
+                                <li><strong>as：</strong>表示显而易见的原因，语气最弱</li>
+                                <li><strong>for：</strong>表示推理原因，不能置于句首</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="example-title">原因表达层次</div>
+                            <ul class="example-list">
+                                <li>He didn't come to school <span class="highlight">because he was seriously ill</span>.</li>
+                                <li><span class="highlight">Since you are not feeling well</span>, you should rest at home.</li>
+                                <li><span class="highlight">As it's getting late</span>, we should hurry up.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-filter"></i>
+                            3. 条件状语从句
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>条件类型分析</h4>
+                            <ul class="point-list">
+                                <li><strong>真实条件：</strong>if, unless, as long as, provided that, in case</li>
+                                <li><strong>虚拟条件：</strong>if引导的虚拟语气结构</li>
+                                <li><strong>让步条件：</strong>even if, even though</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="example-title">条件关系表达</div>
+                            <ul class="example-list">
+                                <li><span class="highlight">If it doesn't rain tomorrow</span>, we will go for a picnic.</li>
+                                <li>You won't pass the exam <span class="highlight">unless you study harder</span>.</li>
+                                <li><span class="highlight">As long as you keep trying</span>, you will eventually succeed.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-random"></i>
+                            4. 让步状语从句
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>让步表达方式</h4>
+                            <ul class="point-list">
+                                <li><strong>基本让步：</strong>though, although, even though</li>
+                                <li><strong>强调让步：</strong>no matter + 疑问词, however, whatever, wherever</li>
+                                <li><strong>倒装让步：</strong>as引导的倒装结构</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="example-title">让步关系展示</div>
+                            <ul class="example-list">
+                                <li><span class="highlight">Although he is very wealthy</span>, he lives a simple life.</li>
+                                <li><span class="highlight">However difficult the task may be</span>, we must complete it.</li>
+                                <li>Poor <span class="highlight">as he is</span>, he is generous to others.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-chart-line"></i>
+                            5. 结果状语从句
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>结果表达模式</h4>
+                            <ul class="point-list">
+                                <li><strong>so...that：</strong>修饰形容词或副词</li>
+                                <li><strong>such...that：</strong>修饰名词或名词短语</li>
+                                <li><strong>so that：</strong>表示自然结果</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="example-title">结果关系示例</div>
+                            <ul class="example-list">
+                                <li>The weather was <span class="highlight">so hot that we couldn't work outside</span>.</li>
+                                <li>It was <span class="highlight">such a beautiful day that we decided to go hiking</span>.</li>
+                                <li>He worked very hard, <span class="highlight">so that he achieved great success</span>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="presenter-credit">
+                        本部分讲解：<span class="presenter-name">曹智铭</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 总结幻灯片 -->
+        <div class="slide content-slide" id="slide-4">
+            <div class="slide-inner">
+                <div class="slide-header">
+                    <h2 class="slide-title">
+                        <i class="slide-icon fas fa-check-circle"></i>
+                        总结与应用
+                    </h2>
+                </div>
+                <div class="slide-body">
+                    <div class="definition-box">
+                        <strong>从句是构建复杂句式的基础：</strong>掌握从句的结构和用法，能够帮助我们准确表达复杂的思想，提高语言表达的精确性和多样性。
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-graduation-cap"></i>
+                            从句类型对比
+                        </h3>
+                        
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>从句类型</th>
+                                    <th>功能</th>
+                                    <th>常见引导词</th>
+                                    <th>特点</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>名词性从句</strong></td>
+                                    <td>充当名词成分</td>
+                                    <td>that, whether, what, who, how</td>
+                                    <td>可作主语、宾语、表语、同位语</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>定语从句</strong></td>
+                                    <td>修饰名词或代词</td>
+                                    <td>who, which, that, whose, where</td>
+                                    <td>分为限制性和非限制性两种</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>状语从句</strong></td>
+                                    <td>修饰动词、形容词、副词或整个句子</td>
+                                    <td>when, because, if, although</td>
+                                    <td>表示各种逻辑关系</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-lightbulb"></i>
+                            学习建议
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>有效掌握从句的方法</h4>
+                            <ul class="point-list">
+                                <li><strong>分类记忆：</strong>按照从句类型和功能进行系统化学习</li>
+                                <li><strong>对比学习：</strong>注意不同从句之间的区别和联系</li>
+                                <li><strong>情境应用：</strong>在实际语境中练习使用各类从句</li>
+                                <li><strong>多读多写：</strong>通过阅读积累从句用法，在写作中灵活运用</li>
+                                <li><strong>错误分析：</strong>分析常见错误，避免混淆不同从句的用法</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="section-icon fas fa-book"></i>
+                            参考资源
+                        </h3>
+                        
+                        <div class="key-points">
+                            <h4>深入学习的推荐材料</h4>
+                            <ul class="point-list">
+                                <li><strong>《牛津实用英语语法》：</strong>系统全面的语法参考书</li>
+                                <li><strong>《剑桥中级英语语法》：</strong>提供大量实用例句和练习</li>
+                                <li><strong>《英语语法新思维》：</strong>从思维角度理解英语语法</li>
+                                <li><strong>语法学习网站：</strong>British Council, Grammar.com, EnglishClub</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-controls">
+        <button class="control-btn" id="prevBtn" title="上一页">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="control-btn" id="nextBtn" title="下一页">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化变量
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+            let currentSlide = 0;
+            const progressBar = document.getElementById('progressBar');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const navMenu = document.getElementById('navMenu');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const themeToggle = document.getElementById('themeToggle');
+            
+            // 创建导航点
+            function createNavDots() {
+                const slideNames = ['首页', '名词性从句', '定语从句', '状语从句', '总结'];
+                
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'nav-dot';
+                    dot.setAttribute('data-tooltip', slideNames[i]);
+                    if (i === currentSlide) {
+                        dot.classList.add('active');
+                    }
+                    dot.addEventListener('click', () => {
+                        goToSlide(i);
+                    });
+                    navMenu.appendChild(dot);
+                }
+            }
+            
+            // 更新进度条
+            function updateProgressBar() {
+                const progress = ((currentSlide + 1) / totalSlides) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            // 更新导航点
+            function updateNavDots() {
+                const dots = document.querySelectorAll('.nav-dot');
+                dots.forEach((dot, index) => {
+                    if (index === currentSlide) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+            
+            // 更新按钮状态
+            function updateButtons() {
+                prevBtn.classList.toggle('disabled', currentSlide === 0);
+                nextBtn.classList.toggle('disabled', currentSlide === totalSlides - 1);
+            }
+            
+            // 切换到指定幻灯片
+            function goToSlide(index) {
+                if (index < 0 || index >= totalSlides) return;
+                
+                slides[currentSlide].classList.remove('active');
+                
+                if (index > currentSlide) {
+                    slides[currentSlide].classList.add('prev');
+                } else {
+                    slides[currentSlide].classList.remove('prev');
+                }
+                
+                currentSlide = index;
+                slides[currentSlide].classList.add('active');
+                
+                updateProgressBar();
+                updateNavDots();
+                updateButtons();
+            }
+            
+            // 下一张幻灯片
+            function nextSlide() {
+                if (currentSlide < totalSlides - 1) {
+                    goToSlide(currentSlide + 1);
+                }
+            }
+            
+            // 上一张幻灯片
+            function prevSlide() {
+                if (currentSlide > 0) {
+                    goToSlide(currentSlide - 1);
+                }
+            }
+            
+            // 全屏切换
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => {
+                        console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+                    });
+                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                        fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                    }
+                }
+            }
+            
+            // 主题切换
+            function toggleTheme() {
+                document.body.classList.toggle('dark-theme');
+                if (document.body.classList.contains('dark-theme')) {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            }
+            
+            // 键盘导航
+            function handleKeyDown(e) {
+                if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    prevSlide();
+                } else if (e.key === 'Home') {
+                    goToSlide(0);
+                } else if (e.key === 'End') {
+                    goToSlide(totalSlides - 1);
+                } else if (e.key === 'f' || e.key === 'F') {
+                    toggleFullscreen();
+                } else if (e.key === 't' || e.key === 'T') {
+                    toggleTheme();
+                }
+            }
+            
+            // 初始化
+            createNavDots();
+            updateProgressBar();
+            updateButtons();
+            
+            // 触摸滑动支持
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            function handleTouchStart(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }
+            
+            function handleTouchEnd(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    // 向左滑动，前进到下一张幻灯片
+                    nextSlide();
+                } else if (touchEndX > touchStartX + swipeThreshold) {
+                    // 向右滑动，返回到上一张幻灯片
+                    prevSlide();
+                }
+            }
+            
+            // 添加触摸事件监听器
+            document.addEventListener('touchstart', handleTouchStart, false);
+            document.addEventListener('touchend', handleTouchEnd, false);
+            
+            // 窗口大小调整处理
+            window.addEventListener('resize', function() {
+                // 调整任何需要响应窗口大小变化的元素
+                // 这里可以添加特定的调整逻辑
+            });
+            
+            // 处理全屏变化事件
+            document.addEventListener('fullscreenchange', function() {
+                if (document.fullscreenElement) {
+                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                } else {
+                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                }
+            });
+            
+            // 初始化第一张幻灯片
+            updateProgressBar();
+            
+            // 添加辅助功能支持
+            slides.forEach(slide => {
+                slide.setAttribute('role', 'region');
+                slide.setAttribute('aria-label', '幻灯片');
+            });
+            
+            console.log('Presentation initialized with ' + totalSlides + ' slides');
+        });
+    </script>
+</body>
+</html>

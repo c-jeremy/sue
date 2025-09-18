@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择器</title>
+    <script src="/twind.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f6f8fe 0%, #e9f0ff 100%);
+        }
+        .choice-input {
+            transition: all 0.3s ease;
+        }
+        .choice-input:focus {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
+        }
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            padding: 3px;
+            border-radius: 1rem;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 1rem;
+            filter: blur(10px);
+            opacity: 0.7;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="max-w-md w-full mx-auto">
+        <div class="gradient-border">
+            <div class="bg-white p-8 rounded-2xl shadow-lg">
+                <h1 class="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">选择器</h1>
+                <div class="space-y-6">
+                    <div class="relative">
+                        <input type="text" id="choice1" class="choice-input w-full px-6 py-4 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:outline-none text-lg" placeholder="选项 1">
+                        <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                            <span class="text-2xl text-indigo-400">1</span>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <input type="text" id="choice2" class="choice-input w-full px-6 py-4 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:outline-none text-lg" placeholder="选项 2">
+                        <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                            <span class="text-2xl text-indigo-400">2</span>
+                        </div>
+                    </div>
+                    <button id="decideBtn" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold py-4 rounded-xl transition duration-300 ease-in-out hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform hover:scale-105">
+                        做出选择
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="mt-8 text-center text-sm text-gray-600">
+        <p class="flex items-center justify-center">
+            <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            本决策程序使用的算法曾支持Czm&LStar的0725行动。
+        </p>
+    </footer>
+
+    <script>
+        const choice1Input = document.getElementById('choice1');
+        const choice2Input = document.getElementById('choice2');
+        const decideBtn = document.getElementById('decideBtn');
+
+        decideBtn.addEventListener('click', async () => {
+            if (!choice1Input.value || !choice2Input.value) {
+                alert('请输入两个选项');
+                return;
+            }
+
+            try {
+                function getRandomIntAndCheckEvenOrOdd(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  const num = Math.floor(Math.random() * (max - min + 1)) + min;
+  // 检查数字是偶数还是奇数
+  const result = num % 2 === 0 ? 'even' : 'odd';
+  return result;
+}
+
+                let type = getRandomIntAndCheckEvenOrOdd(1,100000);
+                const chosenInput = type === 'even' ? choice1Input : choice2Input;
+                const unchosen = type === 'even' ? choice2Input : choice1Input;
+
+                gsap.to(chosenInput, {
+                    backgroundColor: '#818cf8',
+                    color: 'white',
+                    fontWeight: '600',
+                    scale: 1.05,
+                    duration: 0.5,
+                    ease: 'back.out(1.7)'
+                });
+
+                gsap.to(unchosen, {
+                    backgroundColor: '#f3f4f6',
+                    color: '#9ca3af',
+                    scale: 0.95,
+                    duration: 0.5,
+                    ease: 'back.out(1.7)'
+                });
+
+                gsap.to(decideBtn, {
+                    scale: 0.95,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+
+                setTimeout(() => {
+                    gsap.to([chosenInput, unchosen], {
+                        backgroundColor: 'white',
+                        color: 'black',
+                        fontWeight: '400',
+                        scale: 1,
+                        duration: 0.5,
+                        ease: 'power2.out'
+                    });
+
+                    gsap.to(decideBtn, {
+                        scale: 1,
+                        duration: 0.2,
+                        ease: 'power2.out'
+                    });
+                }, 2000);
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('发生错误，请重试');
+            }
+        });
+    </script>
+</body>
+</html>

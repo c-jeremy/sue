@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>PHP项目开发文档</title>
+</head>
+<body>
+<h1>PHP项目开发文档</h1>
+
+<h2>一、项目概述</h2>
+<p>本项目旨在构建一个高效、可扩展且易于维护的Web应用程序，采用PHP作为主要后端语言，结合HTML与Tailwind CSS框架实现前端界面的快速响应式设计。项目强调团队合作，前后端分离架构，并注重代码质量和安全性。</p>
+
+<h2>二、函数封装规范</h2>
+<h3>封装要求：</h3>
+<ul>
+    <li>所有业务逻辑应当封装在函数中，以促进代码的模块化、重用性和可测试性。</li>
+    <li>对于数据库相关的操作，确保传入的第一个参数是数据库连接对象<code>$conn</code>，以便统一管理和优化性能。</li>
+    <li>函数内部应合理处理数据库连接，例如使用try-finally块来确保即使发生异常也能正常关闭连接。</li>
+</ul>
+<h3>函数命名规范：</h3>
+<ul>
+    <li>使用小写字母加下划线的方式命名，确保名称直观且具有描述性。</li>
+    <li>数据库相关函数建议使用<code>db_</code>作为前缀，例如<code>db_fetch_userinfo</code>，以明确其功能范围。</li>
+</ul>
+
+<h2>三、目录结构规范</h2>
+<ul>
+    <li><strong>/config</strong> - 存放应用配置，如数据库设置、API密钥等。</li>
+    <li><strong>/controllers</strong> - 包含处理用户请求的逻辑，每个控制器通常对应一个特定的功能模块。</li>
+    <li><strong>/models</strong> - 定义了与数据库交互的类或方法，实现数据的增删改查。</li>
+    <li><strong>/views</strong> - 包含模板文件，用于渲染给用户的最终页面。</li>
+    <li><strong>/public</strong> - 存储静态资源，如样式表、脚本和图像。</li>
+    <li><strong>/src</strong> - 核心源码目录，包括但不限于公共组件和实用工具。
+        <ul>
+            <li><strong>/common</strong> - 提供跨模块共享的通用服务。</li>
+            <li><strong>/utils</strong> - 收集各种辅助性的工具函数。</li>
+        </ul>
+    </li>
+    <li><strong>/tests</strong> - 单元测试和集成测试用例的存放地。</li>
+    <li><strong>.env</strong> - 环境变量配置文件，用于区分开发、测试和生产环境。</li>
+    <li><strong>index.php</strong> - 应用程序的入口点，负责初始化依赖项并启动路由。</li>
+</ul>
+
+<h2>四、命名规范和格式规范</h2>
+<ul>
+    <li><strong>文件命名</strong>：采用全小写加下划线的形式，如<code>user_profile.php</code>。</li>
+    <li><strong>变量命名</strong>：推荐使用有意义的名字，避免使用单个字母作为变量名，除非是在循环计数等场景下。</li>
+    <li><strong>代码格式</strong>：遵守PSR-12编码标准，保持一致的代码风格，如缩进使用4个空格而非Tab键。</li>
+</ul>
+
+<h2>五、目录作用说明</h2>
+<ul>
+    <li><strong>/config</strong>：存储应用程序的所有配置选项。</li>
+    <li><strong>/controllers</strong>：控制层接收前端请求，调用相应的业务逻辑处理请求。</li>
+    <li><strong>/models</strong>：实现数据访问层，直接与数据库打交道。</li>
+    <li><strong>/views</strong>：展示层，负责将数据呈现给用户。</li>
+    <li><strong>/public</strong>：公开资源文件夹，存放不需要经过服务器解析即可直接访问的文件。</li>
+    <li><strong>/src/common</strong>：提供项目范围内可重用的基础功能。</li>
+    <li><strong>/src/utils</strong>：包含一系列有助于简化开发过程的小工具。</li>
+    <li><strong>/tests</strong>：包含自动化测试脚本，确保软件质量。</li>
+    <li><strong>.env</strong>：定义了运行时所需的环境变量。</li>
+    <li><strong>index.php</strong>：应用程序的主要入口点，负责加载必要的配置和服务。</li>
+</ul>
+
+<h2>六、开发注意事项</h2>
+<ul>
+    <li><strong>数据库连接管理</strong>：优化数据库连接的使用，比如使用持久连接或连接池技术来减少开销。</li>
+    <li><strong>代码复用</strong>：积极寻找机会重用现有的代码片段，减少冗余。</li>
+    <li><strong>代码注释</strong>：对于非显而易见的代码逻辑，务必添加详细的注释。</li>
+    <li><strong>安全措施</strong>：实施严格的输入验证，利用预编译查询防止SQL注入攻击。</li>
+    <li><strong>性能优化</strong>：定期审查代码，查找并解决潜在的性能瓶颈。</li>
+    <li><strong>错误处理</strong>：建立健壮的错误处理机制，确保应用程序能够在遇到问题时优雅地恢复。</li>
+    <li><strong>路由使用</strong>：请使用<code>$_SERVER["REQUEST_URI"]</code>，编写合规的路由处理文件。</li>
+</ul>
+
+<p>通过上述规范和指导原则的应用，我们期望能够构建出既符合行业标准又满足业务需求的高质量软件产品。</p>
+</body>
+</html>

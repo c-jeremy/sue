@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Aurora? - Sue</title>
+    <script src="/twind.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up {
+            animation: fadeInUp 1.5s ease-out;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="mb-12">
+            <div class="flex justify-between items-center">
+                <a href="/aurora.php" class="text-blue-600 hover:text-blue-800 flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Aurora
+                </a>
+            </div>
+            <h1 class="text-4xl font-light text-gray-800 tracking-tight mt-8 fade-in-up">What is Aurora?</h1>
+            <p class="text-xl text-gray-600 mt-4 fade-in-up" style="animation-delay: 0.2s;">A guide to understanding the Aurora system</p>
+        </header>
+
+        <main class="bg-white rounded-lg shadow-sm p-8 mb-12 fade-in-up" style="animation-delay: 0.4s;">
+            <div class="prose max-w-none">
+                <p class="text-lg text-gray-700 mb-8">
+                    Aurora is a sub-project developed by the Sue Team that enhances the task submission experience in the Sue platform. It allows you to manage your task submissions more efficiently, especially when you're running short on time.
+                </p>
+
+                <div class="space-y-8">
+                    <div class="border-b pb-6">
+                        <h2 class="text-2xl font-medium text-gray-800 mb-4">What does Aurora do?</h2>
+                        <p class="text-gray-700">
+                            Aurora allows you to submit your task and upload your related files <em>asynchronously</em>. This means you can mark a task as "submitted" first, and then upload the actual files later, giving you extra time to complete your work.
+                        </p>
+                    </div>
+
+                    <div class="border-b pb-6">
+                        <h2 class="text-2xl font-medium text-gray-800 mb-4">When should I use Aurora?</h2>
+                        <p class="text-gray-700">
+                            Aurora is designed for situations when:
+                        </p>
+                        <ul class="list-disc pl-6 mt-2 space-y-2 text-gray-700">
+                            <li>The task deadline is approaching</li>
+                            <li>You need a little more time to complete your work</li>
+                            <li>You want to ensure your submission is recorded before the deadline</li>
+                        </ul>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mt-4">
+                            <p class="text-blue-700">
+                                <strong>Important:</strong> Aurora only works for tasks that have not yet reached their deadline. If a task has already passed its deadline, Aurora cannot help you submit it late.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border-b pb-6">
+                        <h2 class="text-2xl font-medium text-gray-800 mb-4">How does Aurora work?</h2>
+                        <ol class="list-decimal pl-6 mt-2 space-y-4 text-gray-700">
+                            <li>
+                                <strong>Step 1: Submit your task</strong>
+                                <p class="mt-1">Before the deadline, visit Aurora and click "Submit Now" for your task. You'll specify how many files you plan to upload.</p>
+                            </li>
+                            <li>
+                                <strong>Step 2: Complete your work</strong>
+                                <p class="mt-1">After submission, you'll have additional time to actually complete your work and prepare your files.</p>
+                            </li>
+                            <li>
+                                <strong>Step 3: Upload your files</strong>
+                                <p class="mt-1">When your files are ready, return to Aurora and click "Upload Now" to upload the actual files for your task.</p>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="border-b pb-6">
+                        <h2 class="text-2xl font-medium text-gray-800 mb-4">Frequently Asked Questions</h2>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="font-medium text-gray-900">Can I use Aurora for tasks that have already passed their deadline?</h3>
+                                <p class="text-gray-700 mt-1">
+                                    No. Aurora can only help with tasks that have not yet reached their deadline. It cannot be used to submit tasks after they have expired.
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-medium text-gray-900">How long do I have to upload my files after initial submission?</h3>
+                                <p class="text-gray-700 mt-1">
+                                    While Aurora gives you flexibility, we recommend uploading your files as soon as possible after completing them. This ensures your submission is fully recorded in the system.
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-medium text-gray-900">Can I change the number of files after initial submission?</h3>
+                                <p class="text-gray-700 mt-1">
+                                    No. The number of files you specify during the initial submission is fixed. Make sure you know exactly how many files you'll need to upload.
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-medium text-gray-900">Will my teacher know I used Aurora?</h3>
+                                <p class="text-gray-700 mt-1">
+                                    From your teacher's perspective, they will see that you submitted your task before the deadline. The asynchronous nature of the file upload is transparent to them.
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-medium text-gray-900">Is there a limit to how many files I can submit?</h3>
+                                <p class="text-gray-700 mt-1">
+                                    Yes, you can submit up to 10 files per task using Aurora.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-2xl font-medium text-gray-800 mb-4">Tips for Using Aurora Effectively</h2>
+                        <ul class="list-disc pl-6 mt-2 space-y-2 text-gray-700">
+                            <li>Always submit your task through Aurora <strong>before the deadline</strong></li>
+                            <li>Be realistic about how many files you'll need to upload</li>
+                            <li>Complete and upload your files as soon as possible</li>
+                            <li>Double-check that your files have been successfully uploaded</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="text-center text-gray-500 text-sm py-8 fade-in-up" style="animation-delay: 0.6s;">
+            <p>Aurora &copy; 2025 Sue Team. All rights reserved.</p>
+            <p class="mt-2">A sub-project of the Sue platform.</p>
+        </footer>
+    </div>
+</body>
+</html>

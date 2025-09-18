@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHA-256 Hash Debugger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Seiue Ultra Password Encryptor</h1>
+        <input type="password" id="message" placeholder="Enter your message here">
+        <button onclick="hashMessage()">Encrypt!</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <!-- 引入 js-sha256 库 -->
+    <script src="./enc.js"></script>
+
+    <script>
+        function hashMessage() {
+            const message = document.getElementById('message').value;
+            const hash = sha256(sha256(message));
+            document.getElementById('result').innerText = `Seiue Ultra Encrypted: ${hash}`;
+        }
+    </script>
+</body>
+</html>

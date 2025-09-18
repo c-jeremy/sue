@@ -1,0 +1,24 @@
+{
+  "api": {
+    "base_url": "https://api.seiue.com/chalk/netdisk/files",
+    "headers": {
+      "Accept": "application/json, text/plain, */*",
+      "Accept-Language": "zh-CN,zh;q=0.9",
+      "Authorization": "Bearer {res}",
+      "Connection": "keep-alive",
+      "Origin": "https://chalk-c3.seiue.com",
+      "Referer": "https://chalk-c3.seiue.com/",
+      "Sec-Fetch-Dest": "empty",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Site": "same-site",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0",
+      "X-Reflection-Id": "{ares}",
+      "X-Role": "student",
+      "X-School-Id": "3",
+      "sec-ch-ua": "\"Chromium\";v=\"130\", \"Microsoft Edge\";v=\"130\", \"Not?A_Brand\";v=\"99\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\""
+    },
+    "max_file_size": 10485760
+  }
+}

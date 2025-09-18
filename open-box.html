@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>智能储物柜控制系统</title>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-light: #a5b4fc;
+      --secondary: #0ea5e9;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --gray-light: #e2e8f0;
+      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --shadow-blue: 0 0 15px rgba(99, 102, 241, 0.5);
+      --transition: all 0.3s ease;
+      --glass-bg: rgba(255, 255, 255, 0.9);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: var(--light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 25%),
+        radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.15) 0%, transparent 25%);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg), 0 0 0 1px var(--glass-border);
+      overflow: hidden;
+      transition: var(--transition);
+      width: 100%;
+      max-width: 550px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-blue), 0 0 0 1px var(--glass-border);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+      letter-spacing: -0.5px;
+    }
+
+    .card-header p {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .card-header::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -30%;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .card-body {
+      padding: 2rem;
+      color: var(--dark);
+    }
+
+    .cabinet-info {
+      margin-bottom: 2rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .info-item i {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-right: 1rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    .info-item-content {
+      flex: 1;
+    }
+
+    .info-item-label {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 0.25rem;
+    }
+
+    .info-item-value {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(2px);
+    }
+
+    .btn-secondary {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(99, 102, 241, 0.15);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+    }
+
+    .btn i {
+      margin-right: 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .status-success {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      color: white;
+      font-weight: 500;
+      box-shadow: var(--shadow);
+      transform: translateX(150%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    .toast-success {
+      background: rgba(16, 185, 129, 0.9);
+    }
+
+    .toast-error {
+      background: rgba(239, 68, 68, 0.9);
+    }
+
+    .toast i {
+      margin-right: 0.75rem;
+      font-size: 1.25rem;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 0.75rem;
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .btn.loading .loading {
+      display: inline-block;
+    }
+
+    .btn.loading .btn-icon {
+      display: none;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .form-control {
+      display: block;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--dark);
+      background-color: rgba(255, 255, 255, 0.8);
+      background-clip: padding-box;
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      outline: 0;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      background-color: #fff;
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .input-group .form-control {
+      flex: 1;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .input-group-append {
+      display: flex;
+    }
+
+    .input-group-text {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--gray);
+      text-align: center;
+      background-color: rgba(226, 232, 240, 0.8);
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      border-left: 0;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .cabinet-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .radio-container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .radio-container input[type="radio"] {
+      margin-right: 0.5rem;
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary);
+    }
+
+    .radio-label {
+      font-size: 0.95rem;
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .quick-btn {
+      padding: 0.6rem 0.5rem;
+      font-size: 0.85rem;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.5rem;
+    }
+
+    .quick-btn i {
+      margin-right: 0;
+      font-size: 1.5rem;
+    }
+
+    .glow {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.4);
+      filter: blur(20px);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .glow:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .glow:nth-child(2) {
+      top: 60%;
+      left: 80%;
+      background: rgba(14, 165, 233, 0.4);
+      animation-delay: -2s;
+    }
+
+    .glow:nth-child(3) {
+      top: 80%;
+      left: 30%;
+      background: rgba(16, 185, 129, 0.4);
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-20px) scale(1.1);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        max-width: 100%;
+      }
+      
+      .card-header h1 {
+        font-size: 1.5rem;
+      }
+      
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer {
+      margin-top: 2rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="glow"></div>
+  <div class="glow"></div>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h1>智能储物柜控制系统</h1>
+        <p>安全便捷的储物管理解决方案</p>
+      </div>
+      <div class="card-body">
+        <div class="cabinet-info">
+          <div class="info-item">
+            <i class="bx bx-cabinet"></i>
+            <div class="info-item-content">
+              <div class="info-item-label">选择柜子</div>
+              <div class="info-item-value">
+                <div class="cabinet-selector">
+                  <label class="radio-container">
+                    <input type="radio" name="cabinet" value="A0SF9SLWHP" checked>
+                    <span class="radio-label">1号柜 (A0SF9SLWHP)</span>
+                  </label>
+                  <label class="radio-container">
+                    <input type="radio" name="cabinet" value="XL0YVKZKAI">
+                    <span class="radio-label">2号柜 (XL0YVKZKAI)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="bx bx-grid-alt"></i>
+            <div class="info-item-content">
+              <div class="info-item-label">箱格编号</div>
+              <div class="info-item-value">
+                <div class="input-group">
+                  <input type="number" id="boxNumber" class="form-control" value="2" min="1" max="100">
+                  <div class="input-group-append">
+                    <span class="input-group-text">号箱格</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="bx bx-signal-5"></i>
+            <div class="info-item-content">
+              <div class="info-item-label">网络状态</div>
+              <div class="info-item-value">
+                <span class="status-badge status-success">
+                  <i class="bx bx-check"></i> 在线
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="quick-actions">
+          <button class="btn btn-secondary quick-btn" id="quickBtn1">
+            <i class="bx bx-door-open"></i>
+            <span>1号柜<br>2号箱</span>
+          </button>
+          <button class="btn btn-secondary quick-btn" id="quickBtn2">
+            <i class="bx bx-door-open"></i>
+            <span>1号柜<br>20号箱</span>
+          </button>
+          <button class="btn btn-secondary quick-btn" id="quickBtn3">
+            <i class="bx bx-doors"></i>
+            <span>同时打开<br>两个箱格</span>
+          </button>
+        </div>
+        
+        <button id="openBoxBtn" class="btn btn-primary">
+          <span class="loading"></span>
+          <i class="bx bx-door-open btn-icon"></i>
+          <span id="btnText">打开2号箱格</span>
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      &copy; 2025 智能储物柜控制系统 | 技术支持
+    </div>
+  </div>
+
+  <div id="toast" class="toast">
+    <i class="bx bx-check-circle"></i>
+    <span id="toastMessage"></span>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const openBoxBtn = document.getElementById('openBoxBtn');
+      const quickBtn1 = document.getElementById('quickBtn1');
+      const quickBtn2 = document.getElementById('quickBtn2');
+      const quickBtn3 = document.getElementById('quickBtn3');
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const boxNumberInput = document.getElementById('boxNumber');
+      const btnText = document.getElementById('btnText');
+      
+      // 更新按钮文本
+      function updateButtonText() {
+        const boxNumber = boxNumberInput.value;
+        const cabinetRadios = document.getElementsByName('cabinet');
+        let cabinetLabel = "1号柜";
+        
+        for (const radio of cabinetRadios) {
+          if (radio.checked) {
+            cabinetLabel = radio.value === "A0SF9SLWHP" ? "1号柜" : "2号柜";
+            break;
+          }
+        }
+        
+        btnText.textContent = `打开${cabinetLabel}的${boxNumber}号箱格`;
+      }
+      
+      // 监听输入框变化
+      boxNumberInput.addEventListener('input', updateButtonText);
+
+      // 监听柜子选择变化
+      document.querySelectorAll('input[name="cabinet"]').forEach(radio => {
+        radio.addEventListener('change', updateButtonText);
+      });
+      
+      // 显示提示信息
+      function showToast(message, type = 'success') {
+        toastMessage.textContent = message;
+        toast.className = `toast show toast-${type}`;
+        toast.querySelector('i').className = type === 'success' 
+          ? 'bx bx-check-circle' 
+          : 'bx bx-error-circle';
+        
+        setTimeout(() => {
+          toast.className = 'toast';
+        }, 3000);
+      }
+      
+      // 获取选中的柜子序列号
+      function getSelectedCabinet() {
+        const radios = document.getElementsByName('cabinet');
+        for (const radio of radios) {
+          if (radio.checked) {
+            return radio.value;
+          }
+        }
+        return 'A0SF9SLWHP'; // 默认值
+      }
+
+      // 打开箱格
+      async function openBox(cabinetSN, boxNumber, button) {
+        // 设置按钮为加载状态
+        button.classList.add('loading');
+        button.disabled = true;
+        
+        // 创建表单数据
+        const formData = new FormData();
+        formData.append('sn', cabinetSN);
+        formData.append('no', boxNumber);
+        formData.append('op', 'open');
+        formData.append('val', '0');
+        
+        try {
+          // 发送请求
+          const response = await fetch('http://172.16.190.38:8011/box/operate', {
+            method: 'POST',
+            body: formData
+          });
+          
+          if (!response.ok) {
+            throw new Error('网络响应不正常');
+          }
+          
+          const data = await response.json();
+          
+          // 检查API返回的成功状态
+          if (data.code === 200) {
+            if (data.data && data.data.success) {
+              return {
+                success: true,
+                message: data.data.msg || `${boxNumber}号箱格开启成功！`
+              };
+            } else {
+              return {
+                success: false,
+                message: data.data?.msg || '操作失败，请重试'
+              };
+            }
+          } else {
+            return {
+              success: false,
+              message: data.msg || '请求失败，请重试'
+            };
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          return {
+            success: false,
+            message: '网络错误，请检查连接后重试'
+          };
+        } finally {
+          // 恢复按钮状态
+          button.classList.remove('loading');
+          button.disabled = false;
+        }
+      }
+
+      // 主按钮点击事件
+      openBoxBtn.addEventListener('click', async function() {
+        const boxNumber = boxNumberInput.value;
+        const cabinetSN = getSelectedCabinet();
+        
+        const result = await openBox(cabinetSN, boxNumber, this);
+        showToast(result.message, result.success ? 'success' : 'error');
+      });
+      
+      // 快捷按钮1：打开1号柜的2号箱
+      quickBtn1.addEventListener('click', async function() {
+        const result = await openBox('A0SF9SLWHP', 2, this);
+        showToast(result.message, result.success ? 'success' : 'error');
+      });
+      
+      // 快捷按钮2：打开1号柜的20号箱
+      quickBtn2.addEventListener('click', async function() {
+        const result = await openBox('A0SF9SLWHP', 20, this);
+        showToast(result.message, result.success ? 'success' : 'error');
+      });
+      
+      // 快捷按钮3：同时打开两个箱格
+      quickBtn3.addEventListener('click', async function() {
+        this.classList.add('loading');
+        this.disabled = true;
+        
+        try {
+          // 先打开1号柜的2号箱
+          const result1 = await openBox('A0SF9SLWHP', 2, this);
+          
+          // 再打开1号柜的20号箱
+          const result2 = await openBox('A0SF9SLWHP', 20, this);
+          
+          // 显示结果
+          if (result1.success && result2.success) {
+            showToast('两个箱格都已成功打开！', 'success');
+          } else if (result1.success) {
+            showToast('2号箱格已打开，但20号箱格打开失败', 'error');
+          } else if (result2.success) {
+            showToast('20号箱格已打开，但2号箱格打开失败', 'error');
+          } else {
+            showToast('两个箱格都打开失败', 'error');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          showToast('操作失败，请重试', 'error');
+        } finally {
+          this.classList.remove('loading');
+          this.disabled = false;
+        }
+      });
+      
+      // 初始化
+      updateButtonText();
+    });
+  </script>
+</body>
+</html>
