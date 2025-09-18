@@ -1,0 +1,3 @@
+[submodule "mailer/phpmailer"]
+	path = mailer/phpmailer
+	url = git@github.com:phpmailer/phpmailer.git
