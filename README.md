@@ -1,11 +1,16 @@
 # Sue
 
+> [!WARNING]
+> Sue is now a legacy software. Any further breaking update of the Seiue API or other dependencies might cause unavailability of the software.
+
 [![Uptime](https://img.shields.io/badge/uptime-99.8%25-brightgreen)](https://github.com/c-jeremy/sue)
 [![Performance](https://img.shields.io/badge/speed-8x%20faster-blue)](https://github.com/c-jeremy/sue)
 [![Users](https://img.shields.io/badge/active%20users-30%2B-success)](https://github.com/c-jeremy/sue)
 [![Operations](https://img.shields.io/badge/total%20operations-37k%2B-informational)](https://github.com/c-jeremy/sue)
 
 Sue is a high-performance alternative interface for the Seiue (希悦) educational platform, focusing on speed, reliability, and user experience.
+
+
 
 ## 🚀 Features
 
