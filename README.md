@@ -32,7 +32,7 @@ Sue is a high-performance alternative interface for the Seiue (希悦) education
 ## 🙏 Acknowledgements
 
 Special thanks to:
-- [Geeker LStar](/geeker-lstar) from Beijing Academy for valuable ideas and contributions
+- [Geeker LStar](https://github.com/geeker-lstar) from Beijing Academy for valuable ideas and contributions
 - All users who supported and contributed to Sue's development
 
 ## ⚠️ Important Notice
@@ -41,7 +41,7 @@ This project has concluded its active maintenance phase. We appreciate all the s
 
 ## 📝 Project History
 
-Sue began as a solution to improve the performance of the XiYue platform, starting with basic API integrations and evolving into a comprehensive system with features like:
+Sue began as a solution to improve the performance of the Seiue platform, starting with basic API integrations and evolving into a comprehensive system with features like:
 - Automated session management
 - Optimized file transfers
 - Enhanced UI/UX design
