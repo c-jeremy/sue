@@ -3,6 +3,11 @@
 > [!WARNING]
 > Sue is now a legacy software. Any further breaking update of the Seiue API or other dependencies might cause unavailability of the software.
 
+> [!TIP]
+> While developing Sue, we got many of the Seiue Private APIs reverse engineered. Though Sue is no longer running, you are welcomed to implement this idea into your projects.
+> 
+> Example: [Suen, a school teacher used our idea to build great stuffs.](https://github.com/ieduer/bdfz)
+
 [![Uptime](https://img.shields.io/badge/uptime-99.8%25-brightgreen)](https://github.com/c-jeremy/sue)
 [![Performance](https://img.shields.io/badge/speed-8x%20faster-blue)](https://github.com/c-jeremy/sue)
 [![Users](https://img.shields.io/badge/active%20users-30%2B-success)](https://github.com/c-jeremy/sue)
